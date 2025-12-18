@@ -1,0 +1,323 @@
+/* Modern CSS for Cake Sale Manager */
+
+* {
+    box-sizing: border-box;
+}
+
+/* General body styles */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    background: linear-gradient(135deg, #fdf6f9 0%, #f0e6ff 100%);
+    min-height: 100vh;
+    margin: 0;
+    padding: 40px 20px;
+    color: #2c2c2c;
+    line-height: 1.6;
+}
+
+/* Main heading */
+h1 {
+    text-align: center;
+    font-size: 3em;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, #ff4d88 0%, #ff6fa0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+/* Subheading */
+p {
+    text-align: center;
+    font-size: 1.1em;
+    margin-bottom: 40px;
+    color: #666;
+    font-weight: 500;
+}
+
+/* Container wrapper */
+body > :not(h1):not(p):not(script) {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Sections - modern card style */
+section {
+    padding: 32px;
+    margin-bottom: 28px;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(255, 77, 136, 0.08);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+}
+
+/* Hover effect for sections */
+section:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 60px rgba(255, 77, 136, 0.15);
+}
+
+/* Section color variations */
+section:nth-of-type(1) {
+    background: linear-gradient(135deg, rgba(255, 227, 232, 0.95) 0%, rgba(255, 240, 245, 0.95) 100%);
+}
+
+section:nth-of-type(2) {
+    background: linear-gradient(135deg, rgba(224, 247, 255, 0.95) 0%, rgba(240, 250, 255, 0.95) 100%);
+}
+
+section:nth-of-type(3) {
+    background: linear-gradient(135deg, rgba(255, 220, 224, 0.95) 0%, rgba(255, 240, 242, 0.95) 100%);
+}
+
+section:nth-of-type(4) {
+    background: linear-gradient(135deg, rgba(208, 240, 255, 0.95) 0%, rgba(235, 248, 255, 0.95) 100%);
+}
+
+section:nth-of-type(5) {
+    background: linear-gradient(135deg, rgba(255, 227, 232, 0.95) 0%, rgba(255, 240, 245, 0.95) 100%);
+}
+
+/* Section headings */
+section h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 2em;
+    color: #ff4d88;
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 12px;
+}
+
+section h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 4px;
+    background: linear-gradient(90deg, #ff4d88 0%, #ff6fa0 100%);
+    border-radius: 2px;
+}
+
+/* Subheadings inside sections */
+section h3, section h4 {
+    margin-top: 24px;
+    margin-bottom: 16px;
+    color: #ff4d88;
+    font-weight: 600;
+    font-size: 1.2em;
+}
+
+/* Toggle button styling */
+section > button:first-of-type {
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+table th, table td {
+    padding: 16px 18px;
+    text-align: left;
+    font-weight: 500;
+}
+
+table th {
+    background: linear-gradient(135deg, #ffb6c1 0%, #ffc6d0 100%);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.95em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+table td {
+    color: #333;
+    border-bottom: 1px solid rgba(255, 77, 136, 0.1);
+}
+
+table tr {
+    transition: all 0.2s ease;
+}
+
+table tr:hover {
+    background-color: rgba(255, 227, 232, 0.4);
+}
+
+table tr:last-child td {
+    border-bottom: none;
+}
+
+/* Forms */
+form {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: flex-end;
+}
+
+form input, form select {
+    padding: 12px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 0.95em;
+    transition: all 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.95);
+    color: #333;
+    font-family: inherit;
+}
+
+form input::placeholder {
+    color: #999;
+}
+
+form input:focus, form select:focus {
+    outline: none;
+    border-color: #ff4d88;
+    box-shadow: 0 0 0 8px rgba(255, 77, 136, 0.1);
+    background-color: #fff;
+}
+
+/* Buttons */
+button {
+    cursor: pointer;
+    background: linear-gradient(135deg, #ff4d88 0%, #ff6fa0 100%);
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.95em;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 16px rgba(255, 77, 136, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s;
+}
+
+button:hover {
+    background: linear-gradient(135deg, #ff6fa0 0%, #ff8bb5 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(255, 77, 136, 0.4);
+}
+
+button:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* Div containers for form groups */
+section > div {
+    margin-top: 24px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 12px;
+    border-left: 4px solid #ff4d88;
+}
+
+/* Toggle tables */
+table#events, table#articles {
+    display: none;
+}
+
+table#events.show, table#articles.show {
+    display: table;
+}
+
+/* Stats section paragraph styling */
+section:nth-of-type(4) p {
+    text-align: left;
+    font-size: 1em;
+    margin: 12px 0;
+    color: #333;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 77, 136, 0.1);
+}
+
+/* Responsive for small screens */
+@media (max-width: 768px) {
+    body {
+        padding: 20px 16px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    section {
+        padding: 24px;
+        margin-bottom: 20px;
+    }
+
+    section h2 {
+        font-size: 1.5em;
+    }
+
+    form {
+        flex-direction: column;
+    }
+
+    form input, form select, button {
+        width: 100%;
+    }
+
+    table th, table td {
+        padding: 12px 10px;
+        font-size: 0.9em;
+    }
+
+    button {
+        padding: 12px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5em;
+    }
+
+    p {
+        font-size: 0.95em;
+    }
+
+    section h2 {
+        font-size: 1.3em;
+    }
+
+    section h2::after {
+        width: 40px;
+    }
+}

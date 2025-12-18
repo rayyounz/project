@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cake Sale</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='site.webmanifest') }}">
+</head>
+
+<body>
+
+<h1>CMC Cake Sale Manager</h1>
+<p>NSI – Article & Stock Manager</p>
+
+<section>
+    <h2>Events</h2>
+    <button onclick="toggle('events')">Show / Hide Events</button>
+
+    <table id="events">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Action</th>
+        </tr>
+        {% for id,name,date in events %}
+        <tr>
+            <td>{{ id }}</td>
+            <td>{{ name }}</td>
+            <td>{{ date }}</td>
+            <td>
+                <form action="/deleteevent" method="post">
+                    <input type="hidden" name="id" value="{{ id }}">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <form action="/addevent" method="post">
+        <input name="name" placeholder="Event name" required>
+        <input type="date" name="date" required>
+        <button type="submit">Add Event</button>
+    </form>
+</section>
+
+<section>
+    <h2>Articles</h2>
+    <button onclick="toggle('articles')">Show / Hide Articles</button>
+
+    <table id="articles">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Action</th>
+        </tr>
+        {% for id,name,categorie,prix,stock in articles %}
+        <tr>
+            <td>{{ id }}</td>
+            <td>{{ name }}</td>
+            <td>{{ categorie }}</td>
+            <td>{{ prix }}</td>
+            <td>{{ stock }}</td>
+            <td>
+                <form action="/deletearticle" method="post">
+                    <input type="hidden" name="id" value="{{ id }}">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <div>
+        <h3>Add Article</h3>
+        <form action="/addarticle" method="post">
+            <input name="name" placeholder="Name" required>
+            <input name="categorie" placeholder="Category" required>
+            <input type="number" name="prix" placeholder="Price" required>
+            <input type="number" name="quantite_initiale" placeholder="Initial stock" required>
+            <button type="submit">Add Article</button>
+        </form>
+    </div>
+
+    <div>
+        <h3>Edit Article</h3>
+        <form action="/editarticle" method="post">
+            <input name="id" placeholder="Article ID" required>
+            <input name="name" placeholder="New name" required>
+            <input name="categorie" placeholder="New category" required>
+            <input type="number" name="prix" placeholder="New price" required>
+            <input type="number" name="quantite_initiale" placeholder="New initial stock" required>
+            <button type="submit">Edit Article</button>
+        </form>
+    </div>
+</section>
+
+<section>
+    <h2>Buy / Sell</h2>
+    <form action="/addtransaction" method="post">
+        <input type="number" name="article_id" placeholder="Article ID" required>
+        <select name="type" required>
+            <option value="buy">Buy</option>
+            <option value="sell">Sell</option>
+        </select>
+        <input type="number" name="quantity" placeholder="Quantity" min="1" required>
+        <select name="event_id" required>
+            {% for id,name,date in events %}
+            <option value="{{ id }}">{{ name }} ({{ date }})</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Add Transaction</button>
+    </form>
+</section>
+<section>
+    <h2>To-Do List</h2>
+    <form action="/addtask" method="post">
+        <input name="description" placeholder="Task description" required>
+        <select name="event_id" required>
+            {% for id,name,date in events %}
+            <option value="{{ id }}">{{ name }} ({{ date }})</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Add Task</button>
+    </form>
+
+    <table>
+        <tr>
+            <th>ID</th><th>Description</th><th>Event</th>
+        </tr>
+        {% for id,description,event_name in todos %}
+        <tr>
+            <td>{{ id }}</td>
+            <td>{{ description }}</td>
+            <td>{{ event_name }}</td>
+            <td>
+                <form action="/done_task" method="post">
+                    <input type="hidden" name="id" value="{{ id }}">
+                    <button type="submit">Done</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</section>
+<section>
+    <h2>Event Statistics</h2>
+    <form action="/getstatsforevent" method="post">
+        <select name="event_id" required>
+            {% for id,name,date in events %}
+            <option value="{{ id }}">{{ name }} ({{ date }})</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Show Statistics</button>
+    </form>
+
+    {% if stats %}
+    <h3>Statistics for event: {{ stats.event_name }} ({{ stats.event_date }})</h3>
+    <p>Total sold articles: {{ stats.total_sold }}</p>
+    <p>Total purchases count: {{ stats.total_bought }}</p>
+    <p>Total revenue: {{ profit }}$</p>
+    <p>Articles non vendus: {{ (stats.total_bought - stats.total_sold) if (stats.total_bought - stats.total_sold) > 0 else 0 }}</p>
+
+    <h4>Best Products</h4>
+    <table>
+        <tr>
+            <th>ID</th><th>Name</th><th>Quantity Sold</th>
+        </tr>
+        {% for article in bestproducts %}
+        <tr>
+            <td>{{ article.id }}</td>
+            <td>{{ article.name }}</td>
+            <td>{{ article.quantity_sold }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</section>
+
+<script>
+function toggle(id){
+    var e = document.getElementById(id);
+    e.style.display = (e.style.display === "none") ? "table" : "none";
+}
+</script>
+
+</body>
+</html>
